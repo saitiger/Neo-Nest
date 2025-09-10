@@ -1,5 +1,6 @@
 ## TL;DR (Too Long; Didn't Read)
-An app for parents of preterm babies from NICU discharge through the toddler stage that delivers doctor‑backed guidance, an evidence‑aligned progress tracker using corrected age, a moderated community, and an AI‑assisted play/activity library. The product reduces uncertainty, connects parents to vetted clinicians and local resources, and provides measurable developmental tracking and trusted content. t
+An app for parents of preterm babies from NICU discharge through the toddler stage that delivers doctor‑backed guidance, an evidence‑aligned progress tracker using corrected age, a moderated community, and an AI‑assisted play/activity library. The product reduces uncertainty, connects parents to vetted clinicians and local resources, and provides measurable developmental tracking and trusted content. 
+
 Parents of preterm infants face scarce, inconsistent, or outdated guidance, unclear developmental expectations (corrected vs chronological age), social isolation, and difficulty finding clinicians and local services. This creates anxiety, delayed interventions, and low confidence in everyday caregiving. The app fills a niche for a single, mobile-first, clinician‑validated resource tailored to corrected age and preterm developmental norms.
 
 ## User Personas
