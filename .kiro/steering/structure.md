@@ -9,7 +9,15 @@ Neo-Nest/
 ├── Helper-Elements/         # Project planning and documentation
 │   ├── PRD-v1.md           # Product Requirements Document
 │   └── README.md           # Helper elements overview
-└── README.md              # Project overview
+├── MVP/                     # Current development phase
+│   ├── index.html          # User research landing page
+│   ├── script.js           # Interactive functionality
+│   ├── styles.css          # Responsive styling
+│   ├── README.md           # MVP documentation
+│   └── Getting Started.md  # Development notes
+├── DEVELOPMENT-GUIDE.md     # Comprehensive development workflow
+├── bug-fixes.md            # Troubleshooting documentation
+└── README.md               # Project overview
 ```
 
 ## Documentation Standards
@@ -24,7 +32,8 @@ Neo-Nest/
 
 ## Content Organization
 - **Helper-Elements/**: Contains all pre-development planning materials
-- **MVP/**: Development-specific documentation and progress tracking
+- **MVP/**: Current development phase with user research validation
+- **DEVELOPMENT-GUIDE.md**: Comprehensive technical documentation, IDE setup, and debugging
 - **Root**: High-level project overview and navigation
 
 ## Development Notes

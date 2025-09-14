@@ -39,10 +39,14 @@ All user interactions are stored in localStorage for analysis:
 
 ## Usage
 
-1. Open `index.html` in a web browser
+1. Open `index.html` in a web browser (double-click the file or serve locally)
 2. Share with potential users (preterm parents, NICU families)
 3. Collect feedback through the interactive elements
 4. Export research data using `exportNeoNestData()` in browser console
+
+### Important: Browser Environment Required
+
+The JavaScript files are designed for browser execution and require DOM APIs (`window`, `document`, `localStorage`). Do not attempt to run `script.js` directly with Node.js as it will result in `ReferenceError: window is not defined`.
 
 ## Research Data Export
 
@@ -68,3 +72,17 @@ Based on user research results:
 - Uses localStorage for data persistence
 - Ready for integration with analytics tools
 - Accessible design following WCAG guidelines
+- Browser-only execution (requires DOM APIs)
+
+For detailed development workflow, IDE setup, and debugging instructions, see the [Development Guide](../DEVELOPMENT-GUIDE.md).
+
+## Troubleshooting
+
+### Common Issues
+
+**Error: `Uncaught ReferenceError: window is not defined`**
+- **Cause**: Attempting to run `script.js` directly with Node.js
+- **Solution**: Open `index.html` in a web browser instead
+- **Why**: The script uses browser-specific APIs (`window`, `document`, `localStorage`) not available in Node.js
+
+For detailed troubleshooting information, see `../bug-fixes.md`.
