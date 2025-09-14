@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "name": "Documentation Sync",
+  "description": "Listens to source files (HTML, CSS, JavaScript) and triggers documentation updates in README or docs folder when changes occur",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "*.html",
+      "*.css",
+      "*.js",
+      "*.md",
+      "MVP/*.html",
+      "MVP/*.css",
+      "MVP/*.js",
+      "Helper-Elements/*.md"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "Source files have been modified in this web development project. Please review the changes and update the relevant documentation in the README.md files or create/update documentation in a docs folder if needed. Focus on keeping documentation synchronized with the current state of the codebase, including any new features, API changes, or architectural updates. Make sure to update both the main README.md and any relevant documentation in the MVP or Helper-Elements folders as appropriate."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "enabled": true,
+  "name": "Error Documentation Hook",
+  "description": "Automatically creates or updates a bug documentation file when fixing errors, capturing the bug details, root cause, solution, and reasoning",
+  "version": "1",
+  "when": {
+    "type": "fileEdited",
+    "patterns": [
+      "**/*.js",
+      "**/*.html",
+      "**/*.css",
+      "**/*.md",
+      "**/*.json",
+      "**/*.ts",
+      "**/*.jsx",
+      "**/*.tsx"
+    ]
+  },
+  "then": {
+    "type": "askAgent",
+    "prompt": "When the user asks you to fix an error, create or update a 'bug-fixes.md' document in the root directory. Document: 1) What bugs were encountered (detailed description), 2) Root cause analysis of the error, 3) How you fixed it (step-by-step solution), 4) Reasoning for choosing this fix if multiple options were available. Format this as a timestamped entry with clear sections for each bug fix."
+  }
+}

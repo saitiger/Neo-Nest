@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Nest - Support for Preterm Parents</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">Neo-Nest</h1>
+            <p class="tagline">Your trusted companion from NICU to toddler</p>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Finally, guidance made for preterm parents</h2>
+                <p class="hero-text">
+                    Doctor-backed advice, corrected age tracking, and a supportive community 
+                    - all in one place for parents of preterm babies.
+                </p>
+                
+                <div class="cta-section">
+                    <button class="cta-primary" onclick="showInterest()">I'm Interested</button>
+                    <button class="cta-secondary" onclick="showFeedback()">Tell Us What You Need</button>
+                </div>
+            </div>
+        </section>
+
+        <section class="value-props">
+            <div class="container">
+                <h3>What makes Neo-Nest different?</h3>
+                <div class="features-grid">
+                    <div class="feature">
+                        <div class="feature-icon">📊</div>
+                        <h4>Corrected Age Tracking</h4>
+                        <p>Progress tracker that understands preterm development milestones</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">👩‍⚕️</div>
+                        <h4>Doctor-Backed Content</h4>
+                        <p>Every article and milestone reviewed by neonatologists and pediatricians</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">👥</div>
+                        <h4>Moderated Community</h4>
+                        <p>Connect with other preterm parents in a safe, expert-monitored space</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎯</div>
+                        <h4>Personalized Activities</h4>
+                        <p>Play suggestions tailored to your baby's corrected age and development</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="research-section">
+            <div class="container">
+                <h3>Help us build what you need</h3>
+                <p>We're talking to preterm parents to understand your biggest challenges. Share your experience:</p>
+                
+                <div class="research-questions">
+                    <div class="question-card">
+                        <h4>What's your biggest worry right now?</h4>
+                        <div class="options">
+                            <label><input type="checkbox" name="worry" value="milestones"> Am I tracking the right milestones?</label>
+                            <label><input type="checkbox" name="worry" value="development"> Is my baby developing normally?</label>
+                            <label><input type="checkbox" name="worry" value="information"> Finding trustworthy information</label>
+                            <label><input type="checkbox" name="worry" value="isolation"> Feeling alone in this journey</label>
+                            <label><input type="checkbox" name="worry" value="providers"> Finding the right doctors/therapists</label>
+                        </div>
+                    </div>
+
+                    <div class="question-card">
+                        <h4>What would help you most?</h4>
+                        <div class="options">
+                            <label><input type="checkbox" name="help" value="tracker"> Easy milestone tracking</label>
+                            <label><input type="checkbox" name="help" value="community"> Other preterm parents to talk to</label>
+                            <label><input type="checkbox" name="help" value="expert"> Direct access to experts</label>
+                            <label><input type="checkbox" name="help" value="activities"> Age-appropriate activity ideas</label>
+                            <label><input type="checkbox" name="help" value="directory"> Local provider directory</label>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="submit-feedback" onclick="submitFeedback()">Share My Feedback</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Neo-Nest. Supporting preterm families with evidence-based guidance.</p>
+        </div>
+    </footer>
+
+    <!-- Modals -->
+    <div id="interestModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('interestModal')">&times;</span>
+            <h3>Thanks for your interest!</h3>
+            <p>Leave your email to be notified when Neo-Nest launches:</p>
+            <input type="email" id="emailInput" placeholder="your@email.com">
+            <button onclick="submitEmail()">Notify Me</button>
+        </div>
+    </div>
+
+    <div id="feedbackModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('feedbackModal')">&times;</span>
+            <h3>Tell us about your experience</h3>
+            <textarea id="feedbackText" placeholder="What challenges are you facing as a preterm parent? What would make your journey easier?"></textarea>
+            <button onclick="submitDetailedFeedback()">Send Feedback</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
