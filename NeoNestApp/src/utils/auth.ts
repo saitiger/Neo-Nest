@@ -10,8 +10,12 @@ export interface User {
   email: string;
   firstName: string;
   lastName: string;
+  name?: string; // Display name
   createdAt: string;
   emailVerified: boolean;
+  isExpert?: boolean;
+  credentials?: string;
+  avatar?: string;
 }
 
 export interface AuthTokens {

@@ -6,11 +6,21 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useBabyProfile} from '../contexts/BabyProfileContext';
 import {useMilestone} from '../contexts/MilestoneContext';
 import {calculateCorrectedAge} from '../utils/correctedAge';
+import FloatingHelpButton from '../components/FloatingHelpButton';
+import {useMilestoneNotifications} from '../hooks/useMilestoneNotifications';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const {primaryProfile, isLoading} = useBabyProfile();
-  const {milestones, getRecentMilestones} = useMilestone();
+  const {milestoneLogs} = useMilestone();
+  const {scheduleWeeklyProgressCheck} = useMilestoneNotifications();
+
+  React.useEffect(() => {
+    if (primaryProfile) {
+      // Schedule weekly progress check when user visits home
+      scheduleWeeklyProgressCheck();
+    }
+  }, [primaryProfile, scheduleWeeklyProgressCheck]);
 
   const handleCreateProfile = () => {
     navigation.navigate('BabyProfile' as never);
@@ -41,9 +51,9 @@ const HomeScreen = () => {
   const getRecentMilestonesSummary = () => {
     if (!primaryProfile) return null;
     
-    const recentMilestones = getRecentMilestones(5);
-    const achieved = recentMilestones.filter(m => m.status === 'achieved').length;
-    const inProgress = recentMilestones.filter(m => m.status === 'in-progress').length;
+    const recentMilestones = milestoneLogs.slice(-5); // Get last 5 milestone logs
+    const achieved = recentMilestones.length;
+    const inProgress = 0; // Simplified for now
     
     return { achieved, inProgress, total: recentMilestones.length };
   };
@@ -57,11 +67,12 @@ const HomeScreen = () => {
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Welcome to Neo-Nest</Text>
-        <Text style={styles.subtitle}>Supporting preterm families</Text>
-      </View>
+    <View style={styles.container}>
+      <ScrollView style={styles.scrollContainer}>
+        <View style={styles.header}>
+          <Text style={styles.title}>Welcome to Neo-Nest</Text>
+          <Text style={styles.subtitle}>Supporting preterm families</Text>
+        </View>
       
       <View style={styles.content}>
         {primaryProfile ? (
@@ -153,7 +164,10 @@ const HomeScreen = () => {
           </Text>
         </View>
       </View>
-    </ScrollView>
+      </ScrollView>
+      
+      <FloatingHelpButton screenName="home" />
+    </View>
   );
 };
 
@@ -161,6 +175,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f8f9fa',
+  },
+  scrollContainer: {
+    flex: 1,
   },
   loadingContainer: {
     flex: 1,

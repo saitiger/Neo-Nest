@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createStackNavigator} from '@react-navigation/stack';
 import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
@@ -15,11 +15,33 @@ import SettingsScreen from '../screens/SettingsScreen';
 import HelpScreen from '../screens/HelpScreen';
 import AboutScreen from '../screens/AboutScreen';
 import {useAuth} from '../contexts/AuthContext';
+import {useBabyProfile} from '../contexts/BabyProfileContext';
+import {useNotification} from '../contexts/NotificationContext';
+import CorrectedAgeDisplay from '../components/CorrectedAgeDisplay';
+import HelpTooltip from '../components/HelpTooltip';
+import GuidedTour from '../components/GuidedTour';
+import NotificationBadge from '../components/NotificationBadge';
+import NotificationCenter from '../components/NotificationCenter';
 import {MainTabParamList, MainStackParamList} from './NavigationTypes';
 
-// Placeholder Notifications Screen
+// Enhanced Notifications Screen
 const NotificationsScreen: React.FC = () => {
   const navigation = useNavigation();
+  const {preferences, updatePreferences, isLoading} = useNotification();
+  
+  const togglePreference = async (key: string) => {
+    if (!preferences) return;
+    
+    try {
+      const newPreferences = {
+        ...preferences,
+        [key]: !preferences[key as keyof typeof preferences],
+      };
+      await updatePreferences(newPreferences);
+    } catch (error) {
+      console.error('Error updating preference:', error);
+    }
+  };
   
   return (
     <View style={{flex: 1, backgroundColor: '#f8f9fa'}}>
@@ -44,15 +66,62 @@ const NotificationsScreen: React.FC = () => {
         <View style={{width: 40}} />
       </View>
       
-      <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
-        <Icon name="notifications" size={60} color="#4A90E2" />
-        <Text style={{fontSize: 18, fontWeight: '600', color: '#2c3e50', marginTop: 16, marginBottom: 8}}>
-          Notification Settings
-        </Text>
-        <Text style={{fontSize: 16, color: '#7f8c8d', textAlign: 'center'}}>
-          Manage your notification preferences and stay updated with milestone reminders and community activity.
-        </Text>
-      </View>
+      {isLoading || !preferences ? (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{fontSize: 16, color: '#7f8c8d'}}>Loading...</Text>
+        </View>
+      ) : (
+        <ScrollView style={{flex: 1, padding: 20}}>
+          <View style={{backgroundColor: '#ffffff', borderRadius: 12, padding: 16, marginBottom: 16}}>
+            <Text style={{fontSize: 18, fontWeight: '600', color: '#2c3e50', marginBottom: 16}}>
+              Notification Preferences
+            </Text>
+            
+            {[
+              {key: 'milestoneReminders', label: 'Milestone Reminders', description: 'Get reminded to check milestone progress'},
+              {key: 'communityReplies', label: 'Community Replies', description: 'Notifications when someone replies to your posts'},
+              {key: 'expertSessions', label: 'Expert Sessions', description: 'Reminders for upcoming expert Q&A sessions'},
+              {key: 'weeklyProgress', label: 'Weekly Progress', description: 'Weekly check-ins on your baby\'s development'},
+            ].map((item) => (
+              <TouchableOpacity
+                key={item.key}
+                style={{
+                  flexDirection: 'row',
+                  alignItems: 'center',
+                  paddingVertical: 12,
+                  borderBottomWidth: 1,
+                  borderBottomColor: '#f1f3f4',
+                }}
+                onPress={() => togglePreference(item.key)}>
+                <View style={{flex: 1}}>
+                  <Text style={{fontSize: 16, fontWeight: '500', color: '#2c3e50', marginBottom: 2}}>
+                    {item.label}
+                  </Text>
+                  <Text style={{fontSize: 14, color: '#7f8c8d'}}>
+                    {item.description}
+                  </Text>
+                </View>
+                <View style={{
+                  width: 50,
+                  height: 30,
+                  borderRadius: 15,
+                  backgroundColor: preferences[item.key] ? '#4A90E2' : '#e1e8ed',
+                  justifyContent: 'center',
+                  paddingHorizontal: 2,
+                }}>
+                  <View style={{
+                    width: 26,
+                    height: 26,
+                    borderRadius: 13,
+                    backgroundColor: '#ffffff',
+                    alignSelf: preferences[item.key] ? 'flex-end' : 'flex-start',
+                  }} />
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </ScrollView>
+      )}
     </View>
   );
 };
@@ -190,98 +259,189 @@ const ProfileScreen: React.FC = () => {
 };
 
 const MainTabNavigator: React.FC = () => {
+  const {primaryProfile} = useBabyProfile();
+  const {getUnreadCount} = useNotification();
+  const [showTour, setShowTour] = useState(false);
+  const [showNotificationCenter, setShowNotificationCenter] = useState(false);
+
+  useEffect(() => {
+    // Auto-start tour when user first enters main app
+    const timer = setTimeout(() => {
+      setShowTour(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const correctedAgeTooltip = {
+    title: 'Corrected Age',
+    description: 'For preterm babies, corrected age accounts for early birth by subtracting the weeks born early from chronological age. This helps track development more accurately.',
+    tips: [
+      'Corrected age is used until your baby is 2 years old',
+      'Milestones are based on corrected age, not actual age',
+      'Share corrected age information with your healthcare providers',
+    ],
+  };
+
+  const tourSteps = [
+    {
+      id: 'welcome',
+      title: 'Welcome to Neo-Nest!',
+      description: 'Let\'s take a quick tour of the main features to help you get started.',
+    },
+    {
+      id: 'corrected-age',
+      title: 'Corrected Age Display',
+      description: 'Your baby\'s corrected age is shown here. This is crucial for tracking preterm development milestones.',
+    },
+    {
+      id: 'home-tab',
+      title: 'Home Dashboard',
+      description: 'Your personalized dashboard shows recent milestones, upcoming reminders, and quick actions.',
+    },
+    {
+      id: 'milestones-tab',
+      title: 'Milestone Tracker',
+      description: 'Track your baby\'s developmental milestones using corrected age ranges designed for preterm babies.',
+    },
+    {
+      id: 'community-tab',
+      title: 'Community Support',
+      description: 'Connect with other NICU parents and get advice from healthcare professionals.',
+    },
+    {
+      id: 'profile-tab',
+      title: 'Profile & Settings',
+      description: 'Manage your baby\'s profile, notification preferences, and access help resources.',
+    },
+  ];
+
   return (
-    <Tab.Navigator
-      id="MainTabNavigator"
-      initialRouteName="Home"
-      screenOptions={({route}) => ({
-        tabBarIcon: ({color, size}) => {
-          let iconName: string;
+    <>
+      <Tab.Navigator
+        initialRouteName="Home"
+        screenOptions={({route}) => ({
+          tabBarIcon: ({color, size}) => {
+            let iconName: string;
 
-          switch (route.name) {
-            case 'Home':
-              iconName = 'home';
-              break;
-            case 'Milestones':
-              iconName = 'timeline';
-              break;
-            case 'Community':
-              iconName = 'forum';
-              break;
-            case 'Profile':
-              iconName = 'person';
-              break;
-            default:
-              iconName = 'help';
-          }
+            switch (route.name) {
+              case 'Home':
+                iconName = 'home';
+                break;
+              case 'Milestones':
+                iconName = 'timeline';
+                break;
+              case 'Community':
+                iconName = 'forum';
+                break;
+              case 'Profile':
+                iconName = 'person';
+                break;
+              default:
+                iconName = 'help';
+            }
 
-          return <Icon name={iconName} size={size} color={color} />;
-        },
-        tabBarActiveTintColor: '#3498db',
-        tabBarInactiveTintColor: '#7f8c8d',
-        tabBarStyle: {
-          backgroundColor: '#ffffff',
-          borderTopColor: '#e1e8ed',
-          borderTopWidth: 1,
-          paddingTop: 8,
-          paddingBottom: 8,
-          height: 60,
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          fontWeight: '500',
-        },
-        headerStyle: {
-          backgroundColor: '#ffffff',
-          borderBottomColor: '#e1e8ed',
-          borderBottomWidth: 1,
-        },
-        headerTitleStyle: {
-          fontSize: 18,
-          fontWeight: '600',
-          color: '#2c3e50',
-        },
-      })}>
-      <Tab.Screen 
-        name="Home" 
-        component={HomeScreen}
-        options={{
-          title: 'Home',
-          headerTitle: 'Neo-Nest',
+            return <Icon name={iconName} size={size} color={color} />;
+          },
+          tabBarActiveTintColor: '#3498db',
+          tabBarInactiveTintColor: '#7f8c8d',
+          tabBarStyle: {
+            backgroundColor: '#ffffff',
+            borderTopColor: '#e1e8ed',
+            borderTopWidth: 1,
+            paddingTop: 8,
+            paddingBottom: 8,
+            height: primaryProfile ? 80 : 60, // Extra height for corrected age display
+          },
+          tabBarLabelStyle: {
+            fontSize: 12,
+            fontWeight: '500',
+            marginBottom: primaryProfile ? 16 : 4, // Adjust for corrected age display
+          },
+          headerStyle: {
+            backgroundColor: '#ffffff',
+            borderBottomColor: '#e1e8ed',
+            borderBottomWidth: 1,
+          },
+          headerTitleStyle: {
+            fontSize: 18,
+            fontWeight: '600',
+            color: '#2c3e50',
+          },
+          headerRight: () => (
+            <View style={{flexDirection: 'row', alignItems: 'center', marginRight: 16}}>
+              {primaryProfile && (
+                <HelpTooltip content={correctedAgeTooltip}>
+                  <CorrectedAgeDisplay compact showTooltip />
+                </HelpTooltip>
+              )}
+              <TouchableOpacity
+                onPress={() => setShowNotificationCenter(true)}
+                style={{marginLeft: 12, position: 'relative'}}>
+                <Icon name="notifications" size={24} color="#7f8c8d" />
+                <NotificationBadge count={getUnreadCount()} size="small" />
+              </TouchableOpacity>
+            </View>
+          ),
+        })}>
+        <Tab.Screen 
+          name="Home" 
+          component={HomeScreen}
+          options={{
+            title: 'Home',
+            headerTitle: 'Neo-Nest',
+          }}
+        />
+        <Tab.Screen 
+          name="Milestones" 
+          component={MilestonesScreen}
+          options={{
+            title: 'Milestones',
+            headerTitle: 'Milestone Tracker',
+          }}
+        />
+        <Tab.Screen 
+          name="Community" 
+          component={CommunityScreen}
+          options={{
+            title: 'Community',
+            headerTitle: 'Community Forum',
+          }}
+        />
+        <Tab.Screen 
+          name="Profile" 
+          component={ProfileScreen}
+          options={{
+            title: 'Profile',
+            headerTitle: 'My Profile',
+          }}
+        />
+      </Tab.Navigator>
+
+      {/* Guided Tour */}
+      <GuidedTour
+        steps={tourSteps}
+        tourKey="main_navigation"
+        autoStart={showTour}
+        onComplete={() => setShowTour(false)}
+      />
+
+      {/* Notification Center */}
+      <NotificationCenter
+        visible={showNotificationCenter}
+        onClose={() => setShowNotificationCenter(false)}
+        onNotificationPress={(notification) => {
+          // Handle notification press - navigate to relevant screen
+          console.log('Notification pressed:', notification);
         }}
       />
-      <Tab.Screen 
-        name="Milestones" 
-        component={MilestonesScreen}
-        options={{
-          title: 'Milestones',
-          headerTitle: 'Milestone Tracker',
-        }}
-      />
-      <Tab.Screen 
-        name="Community" 
-        component={CommunityScreen}
-        options={{
-          title: 'Community',
-          headerTitle: 'Community Forum',
-        }}
-      />
-      <Tab.Screen 
-        name="Profile" 
-        component={ProfileScreen}
-        options={{
-          title: 'Profile',
-          headerTitle: 'My Profile',
-        }}
-      />
-    </Tab.Navigator>
+    </>
   );
 };
 
 const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator
-      id="MainStackNavigator"
       screenOptions={{
         headerShown: false,
       }}>

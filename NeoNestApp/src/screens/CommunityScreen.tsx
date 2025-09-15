@@ -12,6 +12,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useCommunity } from '../contexts/CommunityContext';
 import { forumCategories, ForumCategory } from '../data/communityData';
+import FloatingHelpButton from '../components/FloatingHelpButton';
+import {useCommunityNotifications} from '../hooks/useCommunityNotifications';
 
 interface CommunityScreenProps {
   navigation: any;
@@ -277,6 +279,8 @@ const CommunityScreen: React.FC<CommunityScreenProps> = ({ navigation }) => {
           )}
         </View>
       </ScrollView>
+      
+      <FloatingHelpButton screenName="community" />
     </SafeAreaView>
   );
 };

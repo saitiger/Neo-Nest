@@ -4,6 +4,7 @@ import {useBabyProfile} from '../contexts/BabyProfileContext';
 import {useMilestone} from '../contexts/MilestoneContext';
 import {calculateCorrectedAge} from '../utils/correctedAge';
 import {getMilestonesForAge, milestoneCategories, Milestone, isMilestoneDelayed} from '../data/milestones';
+import FloatingHelpButton from '../components/FloatingHelpButton';
 
 interface MilestoneWithStatus extends Milestone {
   status: 'achieved' | 'in-progress' | 'upcoming' | 'delayed';
@@ -200,6 +201,8 @@ const MilestonesScreen: React.FC<MilestonesScreenProps> = ({navigation}) => {
           ))
         )}
       </View>
+      
+      <FloatingHelpButton screenName="milestones" />
     </ScrollView>
   );
 };

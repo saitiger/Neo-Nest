@@ -10,6 +10,8 @@ import {AuthProvider} from './src/contexts/AuthContext';
 import {BabyProfileProvider} from './src/contexts/BabyProfileContext';
 import {MilestoneProvider} from './src/contexts/MilestoneContext';
 import {CommunityProvider} from './src/contexts/CommunityContext';
+import {HelpProvider} from './src/contexts/HelpContext';
+import {NotificationProvider} from './src/contexts/NotificationContext';
 import RootNavigator from './src/navigation/RootNavigator';
 
 function App(): React.JSX.Element {
@@ -20,7 +22,11 @@ function App(): React.JSX.Element {
         <BabyProfileProvider>
           <MilestoneProvider>
             <CommunityProvider>
-              <RootNavigator />
+              <HelpProvider>
+                <NotificationProvider>
+                  <RootNavigator />
+                </NotificationProvider>
+              </HelpProvider>
             </CommunityProvider>
           </MilestoneProvider>
         </BabyProfileProvider>
