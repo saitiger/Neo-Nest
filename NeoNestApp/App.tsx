@@ -8,6 +8,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {AuthProvider} from './src/contexts/AuthContext';
 import {BabyProfileProvider} from './src/contexts/BabyProfileContext';
+import {MilestoneProvider} from './src/contexts/MilestoneContext';
 import RootNavigator from './src/navigation/RootNavigator';
 
 function App(): React.JSX.Element {
@@ -16,7 +17,9 @@ function App(): React.JSX.Element {
       <StatusBar barStyle="light-content" backgroundColor="#3498db" />
       <AuthProvider>
         <BabyProfileProvider>
-          <RootNavigator />
+          <MilestoneProvider>
+            <RootNavigator />
+          </MilestoneProvider>
         </BabyProfileProvider>
       </AuthProvider>
     </SafeAreaProvider>

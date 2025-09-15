@@ -1,70 +1,204 @@
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {useBabyProfile} from '../contexts/BabyProfileContext';
+import {useMilestone} from '../contexts/MilestoneContext';
+import {calculateCorrectedAge} from '../utils/correctedAge';
+import {getMilestonesForAge, milestoneCategories, Milestone, isMilestoneDelayed} from '../data/milestones';
 
-const MilestonesScreen = () => {
-  const milestones = [
-    {
-      id: 1,
-      title: 'Social Smile',
-      correctedAge: '6-8 weeks',
-      description: 'Baby smiles in response to your voice or face',
-      status: 'achieved',
-    },
-    {
-      id: 2,
-      title: 'Head Control',
-      correctedAge: '3-4 months',
-      description: 'Holds head steady when supported in sitting position',
-      status: 'in-progress',
-    },
-    {
-      id: 3,
-      title: 'Rolling Over',
-      correctedAge: '4-6 months',
-      description: 'Rolls from tummy to back and back to tummy',
-      status: 'upcoming',
-    },
-  ];
+interface MilestoneWithStatus extends Milestone {
+  status: 'achieved' | 'in-progress' | 'upcoming' | 'delayed';
+  achievedDate?: string;
+}
+
+interface MilestonesScreenProps {
+  navigation: any;
+}
+
+const MilestonesScreen: React.FC<MilestonesScreenProps> = ({navigation}) => {
+  const {primaryProfile} = useBabyProfile();
+  const {getMilestoneStatus} = useMilestone();
+  const [milestones, setMilestones] = useState<MilestoneWithStatus[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [correctedAge, setCorrectedAge] = useState<string>('');
+
+  useEffect(() => {
+    if (primaryProfile) {
+      const birthDate = new Date(primaryProfile.birthDate);
+      const dueDate = new Date(primaryProfile.dueDate);
+      const ageResult = calculateCorrectedAge(birthDate, dueDate);
+      setCorrectedAge(ageResult.displayText);
+
+      // Get relevant milestones for current corrected age
+      const relevantMilestones = getMilestonesForAge(ageResult.correctedAgeInWeeks, true);
+      
+      // Add status to each milestone using real data from milestone context
+      const milestonesWithStatus: MilestoneWithStatus[] = relevantMilestones.map(milestone => {
+        const status = getMilestoneStatus(milestone.id);
+        const isDelayed = isMilestoneDelayed(milestone, ageResult.correctedAgeInWeeks);
+        
+        // If milestone is not achieved but should be, mark as delayed
+        let finalStatus = status;
+        if (status === 'upcoming' && ageResult.correctedAgeInWeeks > milestone.correctedAgeRangeWeeks[1]) {
+          finalStatus = isDelayed ? 'delayed' : 'in-progress';
+        } else if (status === 'upcoming' && ageResult.correctedAgeInWeeks >= milestone.correctedAgeRangeWeeks[0]) {
+          finalStatus = 'in-progress';
+        }
+
+        return {
+          ...milestone,
+          status: finalStatus,
+        };
+      });
+
+      setMilestones(milestonesWithStatus);
+    }
+  }, [primaryProfile]);
 
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'achieved':
-        return '#4caf50';
+        return '#27ae60';
       case 'in-progress':
-        return '#ff9800';
+        return '#f39c12';
       case 'upcoming':
-        return '#9e9e9e';
+        return '#95a5a6';
+      case 'delayed':
+        return '#e74c3c';
       default:
-        return '#9e9e9e';
+        return '#95a5a6';
     }
   };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'achieved':
+        return 'Achieved';
+      case 'in-progress':
+        return 'In Progress';
+      case 'upcoming':
+        return 'Upcoming';
+      case 'delayed':
+        return 'Needs Attention';
+      default:
+        return 'Unknown';
+    }
+  };
+
+  const getCategoryDisplayName = (category: string) => {
+    return milestoneCategories[category as keyof typeof milestoneCategories] || category;
+  };
+
+  const filteredMilestones = selectedCategory === 'all' 
+    ? milestones 
+    : milestones.filter(m => m.category === selectedCategory);
+
+  const handleMilestonePress = (milestone: MilestoneWithStatus) => {
+    navigation.navigate('MilestoneDetail', {
+      milestone,
+      currentStatus: milestone.status,
+    });
+  };
+
+  if (!primaryProfile) {
+    return (
+      <View style={styles.container}>
+        <View style={styles.emptyState}>
+          <Text style={styles.emptyTitle}>No Baby Profile</Text>
+          <Text style={styles.emptyText}>
+            Create a baby profile to start tracking milestones with corrected age calculations.
+          </Text>
+        </View>
+      </View>
+    );
+  }
 
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Milestones</Text>
-        <Text style={styles.subtitle}>Corrected age tracking</Text>
+        <Text style={styles.subtitle}>
+          {primaryProfile.name}'s corrected age: {correctedAge}
+        </Text>
       </View>
-      
-      <View style={styles.content}>
-        {milestones.map((milestone) => (
-          <TouchableOpacity key={milestone.id} style={styles.milestoneCard}>
-            <View style={styles.milestoneHeader}>
-              <Text style={styles.milestoneTitle}>{milestone.title}</Text>
-              <View 
-                style={[
-                  styles.statusBadge, 
-                  {backgroundColor: getStatusColor(milestone.status)}
-                ]}
-              >
-                <Text style={styles.statusText}>
-                  {milestone.status.replace('-', ' ')}
-                </Text>
-              </View>
-            </View>
-            <Text style={styles.correctedAge}>Corrected age: {milestone.correctedAge}</Text>
-            <Text style={styles.description}>{milestone.description}</Text>
+
+      {/* Category Filter */}
+      <ScrollView 
+        horizontal 
+        showsHorizontalScrollIndicator={false}
+        style={styles.categoryFilter}
+        contentContainerStyle={styles.categoryFilterContent}>
+        <TouchableOpacity
+          style={[
+            styles.categoryButton,
+            selectedCategory === 'all' && styles.categoryButtonActive
+          ]}
+          onPress={() => setSelectedCategory('all')}>
+          <Text style={[
+            styles.categoryButtonText,
+            selectedCategory === 'all' && styles.categoryButtonTextActive
+          ]}>
+            All
+          </Text>
+        </TouchableOpacity>
+        {Object.entries(milestoneCategories).map(([key, label]) => (
+          <TouchableOpacity
+            key={key}
+            style={[
+              styles.categoryButton,
+              selectedCategory === key && styles.categoryButtonActive
+            ]}
+            onPress={() => setSelectedCategory(key)}>
+            <Text style={[
+              styles.categoryButtonText,
+              selectedCategory === key && styles.categoryButtonTextActive
+            ]}>
+              {label}
+            </Text>
           </TouchableOpacity>
         ))}
+      </ScrollView>
+      
+      <View style={styles.content}>
+        {filteredMilestones.length === 0 ? (
+          <View style={styles.emptyState}>
+            <Text style={styles.emptyTitle}>No Milestones</Text>
+            <Text style={styles.emptyText}>
+              No milestones found for the selected category and current age range.
+            </Text>
+          </View>
+        ) : (
+          filteredMilestones.map((milestone) => (
+            <TouchableOpacity 
+              key={milestone.id} 
+              style={styles.milestoneCard}
+              onPress={() => handleMilestonePress(milestone)}>
+              <View style={styles.milestoneHeader}>
+                <Text style={styles.milestoneTitle}>{milestone.title}</Text>
+                <View 
+                  style={[
+                    styles.statusBadge, 
+                    {backgroundColor: getStatusColor(milestone.status)}
+                  ]}>
+                  <Text style={styles.statusText}>
+                    {getStatusText(milestone.status)}
+                  </Text>
+                </View>
+              </View>
+              <Text style={styles.categoryText}>
+                {getCategoryDisplayName(milestone.category)}
+              </Text>
+              <Text style={styles.correctedAge}>
+                Expected: {milestone.correctedAgeRangeWeeks[0]}-{milestone.correctedAgeRangeWeeks[1]} weeks
+              </Text>
+              <Text style={styles.description}>{milestone.description}</Text>
+              {milestone.status === 'delayed' && (
+                <Text style={styles.delayWarning}>
+                  Consider discussing with your pediatrician
+                </Text>
+              )}
+            </TouchableOpacity>
+          ))
+        )}
       </View>
     </ScrollView>
   );
@@ -91,8 +225,54 @@ const styles = StyleSheet.create({
     color: 'white',
     opacity: 0.9,
   },
+  categoryFilter: {
+    paddingVertical: 16,
+  },
+  categoryFilterContent: {
+    paddingHorizontal: 16,
+  },
+  categoryButton: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    marginRight: 8,
+    borderRadius: 20,
+    backgroundColor: '#e9ecef',
+    borderWidth: 1,
+    borderColor: '#dee2e6',
+  },
+  categoryButtonActive: {
+    backgroundColor: '#4a90e2',
+    borderColor: '#4a90e2',
+  },
+  categoryButtonText: {
+    fontSize: 14,
+    color: '#495057',
+    fontWeight: '500',
+  },
+  categoryButtonTextActive: {
+    color: 'white',
+  },
   content: {
     padding: 16,
+  },
+  emptyState: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 32,
+  },
+  emptyTitle: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#495057',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  emptyText: {
+    fontSize: 16,
+    color: '#6c757d',
+    textAlign: 'center',
+    lineHeight: 24,
   },
   milestoneCard: {
     backgroundColor: 'white',
@@ -128,6 +308,13 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     textTransform: 'capitalize',
   },
+  categoryText: {
+    fontSize: 12,
+    color: '#4a90e2',
+    fontWeight: '600',
+    marginBottom: 4,
+    textTransform: 'uppercase',
+  },
   correctedAge: {
     fontSize: 14,
     color: '#666',
@@ -138,6 +325,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
     lineHeight: 20,
+  },
+  delayWarning: {
+    fontSize: 12,
+    color: '#e74c3c',
+    fontWeight: '600',
+    marginTop: 8,
+    fontStyle: 'italic',
   },
 });
 

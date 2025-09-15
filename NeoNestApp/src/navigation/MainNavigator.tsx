@@ -5,6 +5,7 @@ import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../screens/HomeScreen';
 import MilestonesScreen from '../screens/MilestonesScreen';
+import MilestoneDetailScreen from '../screens/MilestoneDetailScreen';
 import BabyProfileScreen from '../screens/BabyProfileScreen';
 import {useAuth} from '../contexts/AuthContext';
 
@@ -17,6 +18,10 @@ export type MainTabParamList = {
 export type MainStackParamList = {
   MainTabs: undefined;
   BabyProfile: undefined;
+  MilestoneDetail: {
+    milestone: any;
+    currentStatus: string;
+  };
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -182,6 +187,14 @@ const MainNavigator: React.FC = () => {
           headerShown: true,
           title: 'Baby Profile',
           presentation: 'modal',
+        }}
+      />
+      <Stack.Screen 
+        name="MilestoneDetail" 
+        component={MilestoneDetailScreen}
+        options={{
+          headerShown: true,
+          title: 'Milestone Details',
         }}
       />
     </Stack.Navigator>
