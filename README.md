@@ -25,12 +25,27 @@ A mobile-first app for parents of preterm babies from NICU discharge through the
 - ✅ **Corrected Age Engine**: Comprehensive calculation utilities with 100% test coverage
 - ✅ **Baby Profile System**: Complete profile creation, management, and corrected age integration
 - ✅ **Milestone Tracking System**: Full categorization, logging, progress tracking, and export functionality
+- ✅ **Interactive Web Preview**: Browser-based demo showcasing complete app functionality
 - ✅ **Security Implementation**: Encrypted AsyncStorage, JWT tokens, form validation
 - ✅ **Professional UI/UX**: WCAG 2.1 AA compliant design with consistent branding
 
 See [Implementation Plan](.kiro/specs/neo-nest-mvp/tasks.md) for detailed development roadmap and [Development Achievements](ACHIEVEMENTS.md) for comprehensive progress tracking.
 
 ## Quick Start
+
+### Interactive Web Preview (Instant Demo)
+```bash
+# Navigate to React Native project and open web preview
+cd NeoNestApp
+# Double-click web-preview.html or open in browser
+open web-preview.html
+```
+
+The web preview provides an interactive demonstration of the complete Neo-Nest app including:
+- Baby profile management with corrected age calculations
+- Milestone tracking with progress indicators and categories
+- Community forum with expert posts and moderated discussions
+- Complete navigation between all main app screens
 
 ### React Native Mobile App
 ```bash
@@ -60,10 +75,13 @@ cd MVP
 Neo-Nest/
 ├── NeoNestApp/             # React Native mobile app (primary development)
 │   ├── src/
-│   │   ├── screens/        # Home and Milestones screens
-│   │   ├── utils/          # Corrected age calculations
-│   │   └── data/           # Milestone definitions
-│   ├── __tests__/          # Comprehensive test suite
+│   │   ├── screens/        # Complete app screens (Home, Milestones, Community, Profile)
+│   │   ├── contexts/       # React Context providers for state management
+│   │   ├── utils/          # Corrected age calculations and services
+│   │   ├── navigation/     # App navigation configuration
+│   │   └── data/           # Milestone and community data definitions
+│   ├── __tests__/          # Comprehensive test suite with 100% coverage
+│   ├── web-preview.html    # Interactive web demo for stakeholders
 │   └── App.tsx             # Main app component
 ├── Helper-Elements/        # Project planning and documentation
 │   ├── PRD-v1.md          # Product Requirements Document

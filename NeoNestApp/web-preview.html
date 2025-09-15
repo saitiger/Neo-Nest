@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo-Nest App Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            color: #2c3e50;
+        }
+        
+        .phone-frame {
+            width: 375px;
+            height: 812px;
+            margin: 20px auto;
+            background: #000;
+            border-radius: 40px;
+            padding: 10px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        
+        .screen {
+            width: 100%;
+            height: 100%;
+            background: #fff;
+            border-radius: 30px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .status-bar {
+            height: 44px;
+            background: #fff;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 83px;
+            background: #fff;
+            border-top: 1px solid #e1e5e9;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding-bottom: 20px;
+        }
+        
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .tab-item.active {
+            color: #4A90E2;
+        }
+        
+        .tab-icon {
+            font-size: 24px;
+            margin-bottom: 4px;
+        }
+        
+        .tab-label {
+            font-size: 10px;
+            font-weight: 500;
+        }
+        
+        .content {
+            padding: 20px;
+            height: calc(100% - 127px);
+            overflow-y: auto;
+        }
+        
+        .screen-title {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+        
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .milestone-card {
+            border-left: 4px solid #4A90E2;
+        }
+        
+        .community-post {
+            border-left: 4px solid #27ae60;
+        }
+        
+        .profile-card {
+            border-left: 4px solid #e74c3c;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .card-subtitle {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 12px;
+        }
+        
+        .card-content {
+            font-size: 16px;
+            line-height: 1.5;
+            color: #555;
+        }
+        
+        .button {
+            background: #4A90E2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+        
+        .button:hover {
+            background: #357abd;
+        }
+        
+        .expert-badge {
+            background: #4A90E2;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .baby-info {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 24px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .age-display {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .corrected-age {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <div class="phone-frame">
+        <div class="screen">
+            <div class="status-bar">
+                <span>9:41</span>
+                <span>Neo-Nest</span>
+                <span>100%</span>
+            </div>
+            
+            <!-- Home Screen -->
+            <div id="home-screen" class="content">
+                <h1 class="screen-title">Welcome to Neo-Nest</h1>
+                
+                <div class="baby-info">
+                    <div class="age-display">Emma, 8 months</div>
+                    <div class="corrected-age">Corrected age: 6 months (born at 32 weeks)</div>
+                </div>
+                
+                <div class="card milestone-card">
+                    <div class="card-title">Recent Milestones</div>
+                    <div class="card-subtitle">Track your baby's development</div>
+                    <div class="card-content">
+                        ✅ Sits without support<br>
+                        🔄 Working on: Crawling<br>
+                        📅 Next check: Rolling over
+                    </div>
+                    <button class="button">View All Milestones</button>
+                </div>
+                
+                <div class="card community-post">
+                    <div class="card-title">Community Highlights</div>
+                    <div class="card-subtitle">Connect with other NICU parents</div>
+                    <div class="card-content">
+                        "Tips for tummy time with preemies" - Dr. Sarah Chen <span class="expert-badge">Expert</span><br>
+                        💬 24 replies • ❤️ 156 likes
+                    </div>
+                    <button class="button">Join Discussion</button>
+                </div>
+            </div>
+            
+            <!-- Milestones Screen -->
+            <div id="milestones-screen" class="content hidden">
+                <h1 class="screen-title">Milestones</h1>
+                
+                <div class="card milestone-card">
+                    <div class="card-title">Motor Skills (6 months corrected)</div>
+                    <div class="card-subtitle">Physical development tracking</div>
+                    <div class="card-content">
+                        ✅ Holds head steady<br>
+                        ✅ Sits with support<br>
+                        🔄 Sits without support<br>
+                        ⏳ Rolls over both ways
+                    </div>
+                    <button class="button">Log Progress</button>
+                </div>
+                
+                <div class="card milestone-card">
+                    <div class="card-title">Cognitive Development</div>
+                    <div class="card-subtitle">Learning and thinking skills</div>
+                    <div class="card-content">
+                        ✅ Responds to name<br>
+                        ✅ Shows curiosity<br>
+                        🔄 Imitates sounds<br>
+                        ⏳ Understands "no"
+                    </div>
+                    <button class="button">Log Progress</button>
+                </div>
+            </div>
+            
+            <!-- Community Screen -->
+            <div id="community-screen" class="content hidden">
+                <h1 class="screen-title">Community</h1>
+                
+                <div class="card community-post">
+                    <div class="card-title">💪 Development & Milestones</div>
+                    <div class="card-subtitle">Share progress and get expert advice</div>
+                    <div class="card-content">
+                        "When did your preemie start crawling?" - Sarah M.<br>
+                        💬 18 replies • ❤️ 42 likes • 2h ago
+                    </div>
+                </div>
+                
+                <div class="card community-post">
+                    <div class="card-title">🍼 Feeding & Nutrition</div>
+                    <div class="card-subtitle">Expert guidance on feeding challenges</div>
+                    <div class="card-content">
+                        "Transitioning from tube to bottle feeding" - Dr. Maria Lopez <span class="expert-badge">Expert</span><br>
+                        💬 31 replies • ❤️ 89 likes • 4h ago
+                    </div>
+                </div>
+                
+                <div class="card community-post">
+                    <div class="card-title">❤️ Emotional Support</div>
+                    <div class="card-subtitle">Connect with other NICU parents</div>
+                    <div class="card-content">
+                        "Dealing with NICU anxiety after discharge" - Jennifer K.<br>
+                        💬 25 replies • ❤️ 67 likes • 6h ago
+                    </div>
+                </div>
+                
+                <button class="button">Create New Post</button>
+            </div>
+            
+            <!-- Profile Screen -->
+            <div id="profile-screen" class="content hidden">
+                <h1 class="screen-title">Baby Profile</h1>
+                
+                <div class="card profile-card">
+                    <div class="card-title">Emma's Information</div>
+                    <div class="card-content">
+                        <strong>Birth Date:</strong> March 15, 2024<br>
+                        <strong>Gestational Age:</strong> 32 weeks<br>
+                        <strong>Current Age:</strong> 8 months<br>
+                        <strong>Corrected Age:</strong> 6 months<br>
+                        <strong>Birth Weight:</strong> 1.8 kg (4 lbs)<br>
+                        <strong>Current Weight:</strong> 6.2 kg (13.7 lbs)
+                    </div>
+                    <button class="button">Edit Profile</button>
+                </div>
+                
+                <div class="card profile-card">
+                    <div class="card-title">Medical Information</div>
+                    <div class="card-content">
+                        <strong>NICU Stay:</strong> 6 weeks<br>
+                        <strong>Conditions:</strong> RDS, Apnea<br>
+                        <strong>Current Medications:</strong> None<br>
+                        <strong>Next Appointment:</strong> Dec 20, 2024
+                    </div>
+                    <button class="button">Update Medical Info</button>
+                </div>
+            </div>
+            
+            <div class="tab-bar">
+                <div class="tab-item active" onclick="showScreen('home')">
+                    <div class="tab-icon">🏠</div>
+                    <div class="tab-label">Home</div>
+                </div>
+                <div class="tab-item" onclick="showScreen('milestones')">
+                    <div class="tab-icon">📊</div>
+                    <div class="tab-label">Milestones</div>
+                </div>
+                <div class="tab-item" onclick="showScreen('community')">
+                    <div class="tab-icon">👥</div>
+                    <div class="tab-label">Community</div>
+                </div>
+                <div class="tab-item" onclick="showScreen('profile')">
+                    <div class="tab-icon">👤</div>
+                    <div class="tab-label">Profile</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function showScreen(screenName) {
+            // Hide all screens
+            document.querySelectorAll('.content').forEach(screen => {
+                screen.classList.add('hidden');
+            });
+            
+            // Remove active class from all tabs
+            document.querySelectorAll('.tab-item').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Show selected screen
+            document.getElementById(screenName + '-screen').classList.remove('hidden');
+            
+            // Add active class to selected tab
+            event.target.closest('.tab-item').classList.add('active');
+        }
+    </script>
+</body>
+</html>

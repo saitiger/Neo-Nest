@@ -64,18 +64,41 @@ A React Native app for parents of preterm babies, providing corrected age tracki
 - **Category System**: 8 specialized discussion categories
 - **Mock Data**: Development-ready sample posts and replies
 
+### ✅ Web Preview (Complete)
+- **Interactive Demo**: Mobile app preview in browser format
+- **Stakeholder Presentation**: Visual demonstration of app features
+- **UI/UX Showcase**: Complete user interface with realistic data
+- **Navigation Demo**: Interactive tab navigation between screens
+- **Feature Highlights**: Baby profiles, milestones, community, and settings
+
 ### 🚧 In Progress
 - Content management system with doctor-backed articles
 - Community screens and user interface implementation
 
 ## Quick Start
 
-### Prerequisites
+### Web Preview (Instant Demo)
+For a quick demonstration of the app's features:
+```bash
+# Open web-preview.html in any modern browser
+open web-preview.html
+# or double-click the file in your file explorer
+```
+
+The web preview provides an interactive demonstration of:
+- Baby profile management with corrected age display
+- Milestone tracking with progress indicators
+- Community forum with expert posts and discussions
+- Complete navigation between all main screens
+
+### Mobile Development
+
+#### Prerequisites
 - Node.js 20+
 - React Native development environment
 - iOS Simulator (Mac) or Android Emulator
 
-### Installation
+#### Installation
 ```bash
 cd NeoNestApp
 npm install
@@ -88,7 +111,7 @@ npm run ios
 npm run android
 ```
 
-### Development Commands
+#### Development Commands
 ```bash
 npm start          # Start Metro bundler
 npm run android    # Run on Android
@@ -106,24 +129,31 @@ NeoNestApp/
 │   │   ├── HomeScreen.tsx
 │   │   ├── MilestonesScreen.tsx
 │   │   ├── BabyProfileScreen.tsx
-│   │   └── MilestoneDetailScreen.tsx
+│   │   ├── MilestoneDetailScreen.tsx
+│   │   ├── CommunityScreen.tsx
+│   │   ├── CreatePostScreen.tsx
+│   │   └── PostDetailScreen.tsx
 │   ├── contexts/          # React Context providers
 │   │   ├── AuthContext.tsx
 │   │   ├── BabyProfileContext.tsx
-│   │   └── MilestoneContext.tsx
+│   │   ├── MilestoneContext.tsx
+│   │   └── CommunityContext.tsx
 │   ├── utils/             # Utility functions
 │   │   ├── correctedAge.ts
 │   │   ├── auth.ts
 │   │   ├── babyProfile.ts
-│   │   └── milestoneLogging.ts
+│   │   ├── milestoneLogging.ts
+│   │   └── communityService.ts
 │   ├── navigation/        # Navigation configuration
 │   │   ├── RootNavigator.tsx
 │   │   └── MainNavigator.tsx
 │   └── data/              # Static data and types
 │       ├── milestones.ts
 │       └── communityData.ts
+├── __tests__/             # Test files
 ├── android/               # Android-specific code
 ├── ios/                   # iOS-specific code
+├── web-preview.html       # Interactive web demo
 └── App.tsx               # Main app component
 ```
 
