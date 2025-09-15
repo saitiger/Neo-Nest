@@ -1,9 +1,11 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {createStackNavigator} from '@react-navigation/stack';
 import {View, Text, TouchableOpacity, Alert} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from '../screens/HomeScreen';
 import MilestonesScreen from '../screens/MilestonesScreen';
+import BabyProfileScreen from '../screens/BabyProfileScreen';
 import {useAuth} from '../contexts/AuthContext';
 
 export type MainTabParamList = {
@@ -12,7 +14,13 @@ export type MainTabParamList = {
   Profile: undefined;
 };
 
+export type MainStackParamList = {
+  MainTabs: undefined;
+  BabyProfile: undefined;
+};
+
 const Tab = createBottomTabNavigator<MainTabParamList>();
+const Stack = createStackNavigator<MainStackParamList>();
 
 // Temporary Profile Screen component
 const ProfileScreen: React.FC = () => {
@@ -83,7 +91,7 @@ const ProfileScreen: React.FC = () => {
   );
 };
 
-const MainNavigator: React.FC = () => {
+const MainTabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -157,6 +165,26 @@ const MainNavigator: React.FC = () => {
         }}
       />
     </Tab.Navigator>
+  );
+};
+
+const MainNavigator: React.FC = () => {
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}>
+      <Stack.Screen name="MainTabs" component={MainTabNavigator} />
+      <Stack.Screen 
+        name="BabyProfile" 
+        component={BabyProfileScreen}
+        options={{
+          headerShown: true,
+          title: 'Baby Profile',
+          presentation: 'modal',
+        }}
+      />
+    </Stack.Navigator>
   );
 };
 
