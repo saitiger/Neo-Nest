@@ -4,10 +4,10 @@ A React Native app for parents of preterm babies, providing corrected age tracki
 
 ## Project Status
 
-**Phase**: Phase 7 - Content Management System Development 🚧  
-**Completed**: Authentication System, Baby Profile System, Milestone Tracking System ✅  
-**Current**: Content library with doctor-backed articles  
-**Next**: Community features and moderated parent support groups
+**Phase**: Phase 6 - Community Features Development 🚧  
+**Completed**: Authentication, Baby Profiles, Milestone Tracking, Community Data Models ✅  
+**Current**: Community forum screens and moderation interface  
+**Next**: Content management system with doctor-backed articles
 
 ### Development Phases Completed
 - ✅ **Phase 1**: User Research & Validation (2-4 weeks)
@@ -56,9 +56,17 @@ A React Native app for parents of preterm babies, providing corrected age tracki
 - **Progress Tracking**: Visual progress indicators and delay warnings
 - **Export Functionality**: Milestone data export for healthcare providers
 
+### ✅ Community Data Models (Complete)
+- **Forum Post Interface**: Complete forum post structure with moderation
+- **Community Groups**: Support groups with member management
+- **Expert Integration**: Healthcare provider verification and credentials
+- **Moderation System**: Content approval and flagging workflows
+- **Category System**: 8 specialized discussion categories
+- **Mock Data**: Development-ready sample posts and replies
+
 ### 🚧 In Progress
 - Content management system with doctor-backed articles
-- Community features and moderated parent support groups
+- Community screens and user interface implementation
 
 ## Quick Start
 
@@ -96,11 +104,24 @@ NeoNestApp/
 ├── src/
 │   ├── screens/           # App screens
 │   │   ├── HomeScreen.tsx
-│   │   └── MilestonesScreen.tsx
+│   │   ├── MilestonesScreen.tsx
+│   │   ├── BabyProfileScreen.tsx
+│   │   └── MilestoneDetailScreen.tsx
+│   ├── contexts/          # React Context providers
+│   │   ├── AuthContext.tsx
+│   │   ├── BabyProfileContext.tsx
+│   │   └── MilestoneContext.tsx
 │   ├── utils/             # Utility functions
-│   │   └── correctedAge.ts
+│   │   ├── correctedAge.ts
+│   │   ├── auth.ts
+│   │   ├── babyProfile.ts
+│   │   └── milestoneLogging.ts
+│   ├── navigation/        # Navigation configuration
+│   │   ├── RootNavigator.tsx
+│   │   └── MainNavigator.tsx
 │   └── data/              # Static data and types
-│       └── milestones.ts
+│       ├── milestones.ts
+│       └── communityData.ts
 ├── android/               # Android-specific code
 ├── ios/                   # iOS-specific code
 └── App.tsx               # Main app component

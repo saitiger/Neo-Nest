@@ -7,11 +7,15 @@ import HomeScreen from '../screens/HomeScreen';
 import MilestonesScreen from '../screens/MilestonesScreen';
 import MilestoneDetailScreen from '../screens/MilestoneDetailScreen';
 import BabyProfileScreen from '../screens/BabyProfileScreen';
+import CommunityScreen from '../screens/CommunityScreen';
+import PostDetailScreen from '../screens/PostDetailScreen';
+import CreatePostScreen from '../screens/CreatePostScreen';
 import {useAuth} from '../contexts/AuthContext';
 
 export type MainTabParamList = {
   Home: undefined;
   Milestones: undefined;
+  Community: undefined;
   Profile: undefined;
 };
 
@@ -22,10 +26,39 @@ export type MainStackParamList = {
     milestone: any;
     currentStatus: string;
   };
+  PostDetail: {
+    postId: string;
+  };
+  CommunityGroups: undefined;
+  GroupDetail: {
+    groupId: string;
+  };
+  CreatePost: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
 const Stack = createStackNavigator<MainStackParamList>();
+
+// Placeholder Community Screens
+const CommunityGroupsScreen: React.FC = () => {
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
+      <Text style={{fontSize: 18, marginBottom: 16}}>Community Groups</Text>
+      <Text style={{color: '#666'}}>This screen is coming soon!</Text>
+    </View>
+  );
+};
+
+const GroupDetailScreen: React.FC<{route: any}> = ({route}) => {
+  const {groupId} = route.params;
+  return (
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center', padding: 20}}>
+      <Text style={{fontSize: 18, marginBottom: 16}}>Group Detail</Text>
+      <Text style={{color: '#666'}}>Group ID: {groupId}</Text>
+      <Text style={{color: '#666', marginTop: 8}}>This screen is coming soon!</Text>
+    </View>
+  );
+};
 
 // Temporary Profile Screen component
 const ProfileScreen: React.FC = () => {
@@ -99,9 +132,10 @@ const ProfileScreen: React.FC = () => {
 const MainTabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
+      id="MainTabNavigator"
       initialRouteName="Home"
       screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
+        tabBarIcon: ({color, size}) => {
           let iconName: string;
 
           switch (route.name) {
@@ -110,6 +144,9 @@ const MainTabNavigator: React.FC = () => {
               break;
             case 'Milestones':
               iconName = 'timeline';
+              break;
+            case 'Community':
+              iconName = 'forum';
               break;
             case 'Profile':
               iconName = 'person';
@@ -162,6 +199,14 @@ const MainTabNavigator: React.FC = () => {
         }}
       />
       <Tab.Screen 
+        name="Community" 
+        component={CommunityScreen}
+        options={{
+          title: 'Community',
+          headerTitle: 'Community Forum',
+        }}
+      />
+      <Tab.Screen 
         name="Profile" 
         component={ProfileScreen}
         options={{
@@ -176,6 +221,7 @@ const MainTabNavigator: React.FC = () => {
 const MainNavigator: React.FC = () => {
   return (
     <Stack.Navigator
+      id="MainStackNavigator"
       screenOptions={{
         headerShown: false,
       }}>
@@ -195,6 +241,39 @@ const MainNavigator: React.FC = () => {
         options={{
           headerShown: true,
           title: 'Milestone Details',
+        }}
+      />
+      <Stack.Screen 
+        name="PostDetail" 
+        component={PostDetailScreen}
+        options={{
+          headerShown: true,
+          title: 'Post Details',
+        }}
+      />
+      <Stack.Screen 
+        name="CommunityGroups" 
+        component={CommunityGroupsScreen}
+        options={{
+          headerShown: true,
+          title: 'Community Groups',
+        }}
+      />
+      <Stack.Screen 
+        name="GroupDetail" 
+        component={GroupDetailScreen}
+        options={{
+          headerShown: true,
+          title: 'Group Details',
+        }}
+      />
+      <Stack.Screen 
+        name="CreatePost" 
+        component={CreatePostScreen}
+        options={{
+          headerShown: true,
+          title: 'Create Post',
+          presentation: 'modal',
         }}
       />
     </Stack.Navigator>
