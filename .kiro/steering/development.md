@@ -1,10 +1,11 @@
 # Development Workflow
 
 ## Architecture Principles
-- **Mobile-First**: All development starts with mobile breakpoints
-- **Vanilla JavaScript**: No external dependencies for MVP phase
-- **Accessibility-First**: WCAG 2.1 AA compliance required
-- **Browser-Only**: JavaScript designed for DOM APIs, not Node.js execution
+- **Hybrid Mobile**: Target platforms are iOS and Android devices
+- **Current Phase**: Web prototype for user research validation
+- **Next Phase**: React Native/Flutter hybrid mobile development
+- **Accessibility-First**: Cross-platform accessibility guidelines compliance required
+- **Research Phase**: Browser-based prototype for concept validation
 
 ## Code Patterns
 - Modal management with proper accessibility
@@ -13,10 +14,10 @@
 - Event-driven user interaction handling
 
 ## Testing Requirements
-- Browser environment required for JavaScript execution
-- Cross-IDE compatibility (VS Code, WebStorm, Sublime, etc.)
-- Mobile responsiveness testing
-- Accessibility auditing with browser tools
+- **Current Phase**: Browser environment for web prototype testing
+- **Hybrid Phase**: Platform simulators/emulators for both iOS and Android
+- **Cross-Platform**: Ensure consistent design patterns across platforms
+- **Accessibility**: VoiceOver (iOS) and TalkBack (Android) testing
 
 ## Documentation Standards
 - Comprehensive development guide maintained in DEVELOPMENT-GUIDE.md

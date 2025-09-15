@@ -4,7 +4,7 @@ A mobile-first app for parents of preterm babies from NICU discharge through the
 
 ## Project Status
 
-Currently in **MVP Development Phase** - building user research validation page and collecting feedback from preterm parents.
+Currently in **User Research Phase** - validating concept with web prototype before hybrid mobile app development. Collecting feedback from preterm parents to inform cross-platform mobile app features.
 
 ## Quick Start
 
@@ -51,15 +51,19 @@ Neo-Nest/
 
 ## Development Approach
 
-- **Technology**: Hybrid mobile (React Native/Flutter) for MVP
+- **Platform**: Hybrid Mobile (React Native/Flutter) for cross-platform MVP
+- **Current Phase**: User research validation via web prototype
+- **Next Phase**: Hybrid mobile app development with validated features
 - **Methodology**: Lean, iterative with user research validation
 - **Timeline**: 4-8 weeks MVP, followed by V1 and V2 phases
 
 ## Documentation
 
 - **Product Requirements**: [Helper-Elements/PRD-v1.md](Helper-Elements/PRD-v1.md)
-- **MVP Details**: [MVP/README.md](MVP/README.md)
-- **Development Guide**: [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) - Complete development workflow, IDE setup, debugging, and architecture
+- **Mobile Development Plan**: [MOBILE-DEVELOPMENT-PLAN.md](MOBILE-DEVELOPMENT-PLAN.md) - Mobile app architecture and implementation strategy (hybrid approach)
+- **Current Research Phase**: [MVP/README.md](MVP/README.md) - Web prototype for user validation
+- **Development Guide**: [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) - Current web prototype workflow and debugging
+- **Architecture Changes**: [ARCHITECTURE-CHANGE-LOG.md](ARCHITECTURE-CHANGE-LOG.md) - Record of major architectural decisions
 - **Troubleshooting**: [bug-fixes.md](bug-fixes.md)
 
 ## Contributing

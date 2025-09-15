@@ -72,45 +72,46 @@ Acceptance: Filter by corrected age, save/share activities, track engagement.
 
 ## Technical Considerations
 Technical Requirements
-Mobile apps: iOS and Android native (mobile‑first).
+Mobile apps: Hybrid cross-platform (React Native/Flutter) for iOS and Android (mobile‑first).
 APIs: Modular REST/GraphQL for profiles, milestones, content, community.
-Perform response; 99.9% uptime target.
+Performance: Sub-2s response times; 99.9% uptime target.
 Security: Encryption at rest/in transit; HIPAA/GDPR compliance where applicable.
 Infrastructure Needs
 Backend: Scalable cloud services, CDN for media.
 Database: Encrypted storage for PII/PHI with role‑based access control.
-Integrations: Maps API, optional telehealth/appointment platforor premium.
+Integrations: Maps API, optional telehealth/appointment platforms for premium.
 Constraints
 Regulatory: Liability disclaimers, clinician sign‑offs, legal review for HIPAA/GDPR.
 Resource: Lean team; limit initial region coverage to manage provider directory quality.
 Trade-offs and Alternatives
-Option First
+Option 1: Native First
 Pros: Best UX and performance.
 Cons: Higher initial dev cost/time.
 
 Option 2: Progressive Web App (PWA) First
 Pros: Faster cross‑platform release, lower cost.
-Cons: Limited nativifications, offline).
+Cons: Limited native capabilities (push notifications, offline).
 
 Option 3: Hybrid (React Native / Flutter)
 Pros: Faster cross‑platform development with native performance tradeoffs.
 Cons: Potentially more work to optimize platform‑specific features.
-Chosen Approach: Hybrid (React Native / Flutter) for MVP to balance speed and UX, then move to native refinements for performance‑critical flows. Rationale: lean team and rapid iteration priority. (Adjust based on engineering preference.)
+Chosen Approach: Hybrid (React Native / Flutter) for MVP to balance speed and UX, then move to native refinements for performance‑critical flows. Rationale: lean team and rapid iteration priority with cross-platform support.
 
 ## Timeline and Milestones
 Phase 1: MVP Development
 Duration: 4–8 weeks (lean estimate).
-Key Deliverables: Baby profile + corrected age, milestone tracker, core content module with initial clinician‑reviewed articles, moderated community, basic play library, provider d- Success Criteria: Core flows functional, clinician review workflow implemented, 1st 1k pilot users onboarded.
+Key Deliverables: Baby profile + corrected age, milestone tracker, core content module with initial clinician‑reviewed articles, moderated community, basic play library, provider directory.
+Success Criteria: Core flows functional, clinician review workflow implemented, 1st 1k pilot users onboarded.
 
 Phase 2: V1 Release (Post‑MVP)
 Duration: 4–6 weeks.
 Key Deliverables: Expert session infrastructure (livestream + RSVP), upgraded tracker with milestone zones (green/watch/delayed), Resource Hub with local support listings.
-Success Criteria: Expert session attendance metrics, watch/delainician‑recommended actions.
+Success Criteria: Expert session attendance metrics, watch/delayed milestone clinician‑recommended actions.
 
 Phase 3: V2 / V3 Enhancements
 Duration: 6–8 weeks after V2 for telehealth and premium rollout.
 Key Deliverables: Telehealth booking integration, verified doctor engagement in community, premium subscription and billing, optional AI summarization layer.
-Success Criteria: Telehealth bookings processed, premiuget, AI mapping achieves acceptance criteria (e.g., ≥80% mapping accuracy in validation).
+Success Criteria: Telehealth bookings processed, premium conversion target met, AI mapping achieves acceptance criteria (e.g., ≥80% mapping accuracy in validation).
 Team size: Small/lean — Product Owner, 1 full‑stack engineer, part‑time UX/UI designer, part‑time moderation/compliance contractor.
 
 ## Risks & Mitigations

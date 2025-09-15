@@ -9,13 +9,15 @@ Neo-Nest/
 ├── Helper-Elements/         # Project planning and documentation
 │   ├── PRD-v1.md           # Product Requirements Document
 │   └── README.md           # Helper elements overview
-├── MVP/                     # Current development phase
+├── MVP/                     # User research phase (web prototype)
 │   ├── index.html          # User research landing page
 │   ├── script.js           # Interactive functionality
 │   ├── styles.css          # Responsive styling
 │   ├── README.md           # MVP documentation
 │   └── Getting Started.md  # Development notes
-├── DEVELOPMENT-GUIDE.md     # Comprehensive development workflow
+├── MOBILE-DEVELOPMENT-PLAN.md # Hybrid mobile app development strategy
+├── DEVELOPMENT-GUIDE.md     # Web prototype development workflow
+├── ARCHITECTURE-CHANGE-LOG.md # Record of major architectural decisions
 ├── bug-fixes.md            # Troubleshooting documentation
 └── README.md               # Project overview
 ```
@@ -32,12 +34,15 @@ Neo-Nest/
 
 ## Content Organization
 - **Helper-Elements/**: Contains all pre-development planning materials
-- **MVP/**: Current development phase with user research validation
-- **DEVELOPMENT-GUIDE.md**: Comprehensive technical documentation, IDE setup, and debugging
+- **MVP/**: User research phase with web prototype for validation
+- **MOBILE-DEVELOPMENT-PLAN.md**: Hybrid mobile app architecture and development strategy
+- **DEVELOPMENT-GUIDE.md**: Web prototype technical documentation and debugging
 - **Root**: High-level project overview and navigation
 
 ## Development Notes
 - Project follows a lean, iterative approach
 - Documentation-first methodology with comprehensive PRD
+- Current phase: User research validation via web prototype
+- Next phase: Hybrid mobile app development (React Native/Flutter)
 - Progress tracking includes both technical and user research elements
 - Emphasis on user pain points and market validation
