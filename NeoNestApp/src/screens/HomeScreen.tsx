@@ -1,16 +1,27 @@
 
+import React from 'react';
 import {View, Text, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import {useBabyProfile} from '../contexts/BabyProfileContext';
+import {useMilestone} from '../contexts/MilestoneContext';
 import {calculateCorrectedAge} from '../utils/correctedAge';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
   const {primaryProfile, isLoading} = useBabyProfile();
+  const {milestones, getRecentMilestones} = useMilestone();
 
   const handleCreateProfile = () => {
     navigation.navigate('BabyProfile' as never);
+  };
+
+  const handleViewMilestones = () => {
+    navigation.navigate('Milestones' as never);
+  };
+
+  const handleViewCommunity = () => {
+    navigation.navigate('Community' as never);
   };
 
   const getCorrectedAgeDisplay = () => {
@@ -25,6 +36,16 @@ const HomeScreen = () => {
     } catch {
       return 'Unable to calculate';
     }
+  };
+
+  const getRecentMilestonesSummary = () => {
+    if (!primaryProfile) return null;
+    
+    const recentMilestones = getRecentMilestones(5);
+    const achieved = recentMilestones.filter(m => m.status === 'achieved').length;
+    const inProgress = recentMilestones.filter(m => m.status === 'in-progress').length;
+    
+    return { achieved, inProgress, total: recentMilestones.length };
   };
 
   if (isLoading) {
@@ -73,6 +94,56 @@ const HomeScreen = () => {
               <Text style={styles.createButtonText}>Create Profile</Text>
             </TouchableOpacity>
           </View>
+        )}
+        
+        {primaryProfile && (
+          <>
+            <View style={styles.quickActions}>
+              <Text style={styles.sectionTitle}>Quick Actions</Text>
+              <View style={styles.actionGrid}>
+                <TouchableOpacity style={styles.actionCard} onPress={handleViewMilestones}>
+                  <Icon name="timeline" size={32} color="#4A90E2" />
+                  <Text style={styles.actionTitle}>Milestones</Text>
+                  <Text style={styles.actionSubtitle}>Track progress</Text>
+                </TouchableOpacity>
+                
+                <TouchableOpacity style={styles.actionCard} onPress={handleViewCommunity}>
+                  <Icon name="forum" size={32} color="#E74C3C" />
+                  <Text style={styles.actionTitle}>Community</Text>
+                  <Text style={styles.actionSubtitle}>Connect & share</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <View style={styles.progressSection}>
+              <Text style={styles.sectionTitle}>Recent Progress</Text>
+              {(() => {
+                const summary = getRecentMilestonesSummary();
+                return summary ? (
+                  <View style={styles.progressCard}>
+                    <View style={styles.progressStats}>
+                      <View style={styles.progressStat}>
+                        <Text style={styles.progressNumber}>{summary.achieved}</Text>
+                        <Text style={styles.progressLabel}>Achieved</Text>
+                      </View>
+                      <View style={styles.progressStat}>
+                        <Text style={styles.progressNumber}>{summary.inProgress}</Text>
+                        <Text style={styles.progressLabel}>In Progress</Text>
+                      </View>
+                    </View>
+                    <TouchableOpacity style={styles.viewAllButton} onPress={handleViewMilestones}>
+                      <Text style={styles.viewAllText}>View All Milestones</Text>
+                      <Icon name="arrow-forward" size={16} color="#4A90E2" />
+                    </TouchableOpacity>
+                  </View>
+                ) : (
+                  <View style={styles.noProgressCard}>
+                    <Text style={styles.noProgressText}>Start tracking milestones to see your progress here</Text>
+                  </View>
+                );
+              })()}
+            </View>
+          </>
         )}
         
         <View style={styles.journeySection}>
@@ -198,6 +269,96 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  quickActions: {
+    marginBottom: 24,
+  },
+  actionGrid: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  actionCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 20,
+    alignItems: 'center',
+    flex: 1,
+    marginHorizontal: 6,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  actionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#2c3e50',
+    marginTop: 8,
+    marginBottom: 4,
+  },
+  actionSubtitle: {
+    fontSize: 12,
+    color: '#7f8c8d',
+  },
+  progressSection: {
+    marginBottom: 24,
+  },
+  progressCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 20,
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  progressStats: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginBottom: 16,
+  },
+  progressStat: {
+    alignItems: 'center',
+  },
+  progressNumber: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#4A90E2',
+    marginBottom: 4,
+  },
+  progressLabel: {
+    fontSize: 14,
+    color: '#7f8c8d',
+  },
+  viewAllButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 8,
+  },
+  viewAllText: {
+    fontSize: 14,
+    color: '#4A90E2',
+    fontWeight: '500',
+    marginRight: 4,
+  },
+  noProgressCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
+    padding: 20,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
+  },
+  noProgressText: {
+    fontSize: 14,
+    color: '#7f8c8d',
+    textAlign: 'center',
   },
   journeySection: {
     marginTop: 8,
