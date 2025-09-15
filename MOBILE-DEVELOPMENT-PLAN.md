@@ -17,6 +17,7 @@ Neo-Nest will be developed as a hybrid mobile application using React Native or 
 - Validate community features importance
 - Test doctor-backed content appeal
 - Identify most critical features for MVP
+- Validate the 8 core requirements detailed in [.kiro/specs/neo-nest-mvp/requirements.md](.kiro/specs/neo-nest-mvp/requirements.md)
 
 ## Hybrid Mobile Development Approach
 

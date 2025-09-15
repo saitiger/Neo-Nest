@@ -5,6 +5,9 @@
 ```
 Neo-Nest/
 ├── .kiro/                    # Kiro AI assistant configuration
+│   ├── specs/               # Formal specifications
+│   │   └── neo-nest-mvp/   # MVP specification documents
+│   │       └── requirements.md # Detailed user stories and acceptance criteria
 │   └── steering/            # AI guidance rules
 ├── Helper-Elements/         # Project planning and documentation
 │   ├── PRD-v1.md           # Product Requirements Document
@@ -24,6 +27,7 @@ Neo-Nest/
 
 ## Documentation Standards
 - **PRD**: Comprehensive product requirements in Helper-Elements/
+- **Formal Requirements**: Detailed specifications with user stories in .kiro/specs/neo-nest-mvp/
 - **Planning**: All planning documents centralized in Helper-Elements/
 - **Progress Tracking**: Development journey documented with daily updates
 

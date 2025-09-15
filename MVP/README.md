@@ -9,6 +9,7 @@ This home page is designed to:
 - Collect user feedback on pain points and desired features
 - Gather email addresses for launch notifications
 - Validate market demand before full development
+- Research user needs to inform the 8 core requirements detailed in [.kiro/specs/neo-nest-mvp/requirements.md](../.kiro/specs/neo-nest-mvp/requirements.md)
 
 ## Features
 
