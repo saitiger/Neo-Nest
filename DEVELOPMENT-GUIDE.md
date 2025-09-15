@@ -2,7 +2,9 @@
 
 ## Project Overview
 
-Neo-Nest is a mobile-first web application designed for parents of preterm babies. This guide documents the development approach, agent hooks, coding logic, and cross-IDE compatibility.
+Neo-Nest is a mobile-first hybrid application designed for parents of preterm babies from NICU discharge through the toddler stage. This guide documents the development approach, agent hooks, coding logic, and cross-IDE compatibility for the current user research phase.
+
+**Formal Requirements**: See [.kiro/specs/neo-nest-mvp/requirements.md](.kiro/specs/neo-nest-mvp/requirements.md) for detailed user stories and acceptance criteria covering all 8 core requirements.
 
 ## Current Build Status
 

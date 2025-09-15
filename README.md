@@ -60,6 +60,7 @@ Neo-Nest/
 ## Documentation
 
 - **Product Requirements**: [Helper-Elements/PRD-v1.md](Helper-Elements/PRD-v1.md)
+- **Formal Requirements**: [.kiro/specs/neo-nest-mvp/requirements.md](.kiro/specs/neo-nest-mvp/requirements.md) - Detailed user stories and acceptance criteria
 - **Mobile Development Plan**: [MOBILE-DEVELOPMENT-PLAN.md](MOBILE-DEVELOPMENT-PLAN.md) - Mobile app architecture and implementation strategy (hybrid approach)
 - **Current Research Phase**: [MVP/README.md](MVP/README.md) - Web prototype for user validation
 - **Development Guide**: [DEVELOPMENT-GUIDE.md](DEVELOPMENT-GUIDE.md) - Current web prototype workflow and debugging

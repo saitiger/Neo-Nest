@@ -10,6 +10,10 @@ All the planning materials and documentation required for Neo-Nest development.
   - Feature specifications and success metrics
   - Technical requirements and timeline
   - Risk analysis and mitigation strategies
+- **Formal Requirements** - Detailed specifications in `.kiro/specs/neo-nest-mvp/requirements.md`
+  - 8 core requirements with user stories
+  - Detailed acceptance criteria for each feature
+  - Cross-platform mobile experience specifications
 
 ### In Progress
 - User research validation (via MVP landing page)
