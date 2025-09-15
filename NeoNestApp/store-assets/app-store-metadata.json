@@ -1,0 +1,59 @@
+{
+  "appName": "Neo-Nest",
+  "subtitle": "Preterm Baby Development Tracker",
+  "description": {
+    "short": "Evidence-based guidance and milestone tracking for parents of preterm babies, featuring corrected age calculations and clinician-validated content.",
+    "full": "Neo-Nest is the comprehensive mobile app designed specifically for parents of preterm babies from NICU discharge through the toddler stage. Our app provides:\n\n• CORRECTED AGE TRACKING: Automatic calculations ensure developmental milestones are age-appropriate for your preterm baby\n\n• MILESTONE MONITORING: Track your baby's progress with preterm-specific developmental ranges and export reports for pediatric visits\n\n• DOCTOR-BACKED CONTENT: Access articles and videos reviewed by qualified neonatologists and pediatricians\n\n• COMMUNITY SUPPORT: Connect with other preterm parents in our moderated forum with verified expert responses\n\n• INTERACTIVE PLAY LIBRARY: Discover age-appropriate activities filtered by your baby's corrected age and available materials\n\n• HEALTHCARE DIRECTORY: Find specialists with NICU experience and preterm expertise in your area\n\nNeo-Nest addresses the critical gap in specialized guidance for preterm infant development by providing clinician-validated resources tailored to corrected age calculations and preterm developmental norms. Our secure, HIPAA-compliant platform ensures your baby's sensitive information is protected while giving you the confidence and support you need during this important journey.\n\nDeveloped in partnership with neonatologists, pediatricians, and preterm parent advocates."
+  },
+  "keywords": [
+    "preterm baby",
+    "premature baby",
+    "NICU",
+    "corrected age",
+    "milestone tracking",
+    "baby development",
+    "parenting",
+    "pediatric",
+    "neonatology",
+    "healthcare"
+  ],
+  "category": "Medical",
+  "contentRating": "4+",
+  "supportURL": "https://neo-nest.com/support",
+  "marketingURL": "https://neo-nest.com",
+  "privacyURL": "https://neo-nest.com/privacy",
+  "copyright": "© 2025 Neo-Nest. All rights reserved.",
+  "releaseNotes": {
+    "v1.0.0": "Initial release featuring corrected age tracking, milestone monitoring, doctor-backed content library, moderated community forum, and interactive play activities. Designed specifically for parents of preterm babies with clinician-validated guidance and HIPAA-compliant security."
+  },
+  "screenshots": {
+    "ios": {
+      "iPhone": [
+        "screenshots/ios/iphone/01-home-screen.png",
+        "screenshots/ios/iphone/02-milestone-tracker.png",
+        "screenshots/ios/iphone/03-corrected-age.png",
+        "screenshots/ios/iphone/04-community-forum.png",
+        "screenshots/ios/iphone/05-play-library.png"
+      ],
+      "iPad": [
+        "screenshots/ios/ipad/01-home-screen.png",
+        "screenshots/ios/ipad/02-milestone-tracker.png",
+        "screenshots/ios/ipad/03-content-library.png"
+      ]
+    },
+    "android": {
+      "phone": [
+        "screenshots/android/phone/01-home-screen.png",
+        "screenshots/android/phone/02-milestone-tracker.png",
+        "screenshots/android/phone/03-corrected-age.png",
+        "screenshots/android/phone/04-community-forum.png",
+        "screenshots/android/phone/05-play-library.png"
+      ],
+      "tablet": [
+        "screenshots/android/tablet/01-home-screen.png",
+        "screenshots/android/tablet/02-milestone-tracker.png",
+        "screenshots/android/tablet/03-content-library.png"
+      ]
+    }
+  }
+}

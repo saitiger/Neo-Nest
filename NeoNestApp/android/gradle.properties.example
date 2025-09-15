@@ -1,0 +1,26 @@
+# Example gradle.properties for production builds
+# Copy this file to gradle.properties and fill in your actual values
+
+# Release signing configuration
+MYAPP_RELEASE_STORE_FILE=neo-nest-release-key.keystore
+MYAPP_RELEASE_KEY_ALIAS=neo-nest-release
+MYAPP_RELEASE_STORE_PASSWORD=your_store_password_here
+MYAPP_RELEASE_KEY_PASSWORD=your_key_password_here
+
+# Flipper (disable for release)
+FLIPPER_VERSION=0.125.0
+
+# Hermes engine (enable for better performance)
+hermesEnabled=true
+
+# ProGuard (enable for release)
+enableProguardInReleaseBuilds=true
+
+# Android build optimization
+org.gradle.jvmargs=-Xmx4096m -XX:MaxPermSize=512m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+org.gradle.parallel=true
+org.gradle.configureondemand=true
+org.gradle.daemon=true
+
+# React Native build optimization
+REACT_NATIVE_UNSTABLE_USE_HERMES=true
